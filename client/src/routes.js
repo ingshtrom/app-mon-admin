@@ -9,20 +9,15 @@ const Redirect = require('react-router').Redirect;
 const App = require('./components/app');
 const HomePage = require('./components/home-page');
 const MonitorPage = require('./components/monitors/monitor-page');
+const ManageMonitorPage = require('./components/monitors/manage-monitor-page');
 
 const routes = (
     <Router>
         <Route path="/" component={App}>
             <IndexRoute component={HomePage} />
             <Route path="monitors" component={MonitorPage} />
-            // <Route path="author" component={ManageAuthorPage} />
-            // <Route path="author/:id" component={ManageAuthorPage} />
-            // <Route path="*" component={NotFoundPage}/>
-            // // I had trouble getting redirects to work
-            // // think it is because of our history method
-            // <Redirect from="about-us" to="about" />
-            // <Redirect from="authurs" to="authors" />
-            // <Redirect from="about/*" to="about" />
+            <Route path="monitors/new" component={ManageMonitorPage} />
+            <Route path="monitors/:id" component={ManageMonitorPage} />
         </Route>
     </Router>
 );

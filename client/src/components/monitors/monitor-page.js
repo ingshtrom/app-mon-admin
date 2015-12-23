@@ -5,7 +5,9 @@ const React = require('react');
 const MonitorPage = React.createClass({
     render: () => {
         return (
-            <div></div>
+            <div>
+                
+            </div>
         );
     }
 });

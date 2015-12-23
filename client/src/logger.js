@@ -1,4 +1,4 @@
-const winston = require('winston');
+// const winston = require('winston');
 
 function getInstance (namespace) {
     // add our custom transports for all loggers
@@ -25,14 +25,14 @@ function getInstance (namespace) {
     //         new (winston.transports.File)(fileConfig)
     //     ]
     // });
-    
+
     // // private impl
     // function formatter (options) {
     //     const message = options.message ? options.message : '';
     //     const meta = (options.meta && Object.keys(options.meta).length ? '\n'+ JSON.stringify(options.meta) : '' );
-    //     return Date.now() + ' [' + options.level.toUpperCase() + '] ' + namespace + ' :: ' + message + ' -- ' + meta;  
+    //     return Date.now() + ' [' + options.level.toUpperCase() + '] ' + namespace + ' :: ' + message + ' -- ' + meta;
     // }
-    
+
     return console;
 }
 
