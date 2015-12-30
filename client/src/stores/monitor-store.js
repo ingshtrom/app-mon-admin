@@ -2,14 +2,14 @@
 
 const Dispatcher = require('../dispatcher/app-dispatcher');
 const ActionTypes = require('../constants/action-types');
-const logger = require('../logger');
+const logger = require('../logger').getInstance('MonitorStore');
 const EventEmitter = require('events').EventEmitter;
 const _ = require('lodash');
 
 const CHANGE_EVENT = 'monitors-store-change';
-const _monitors = [];
+let _monitors = [];
 
-const MonitorsStore = Object.assign({}, EventEmitter.prototype, {
+const MonitorStore = Object.assign({}, EventEmitter.prototype, {
     addChangeListener: function (callback) {
         this.on(CHANGE_EVENT, callback);
     },
@@ -33,11 +33,11 @@ Dispatcher.register((action) => {
         case ActionTypes.INITIALIZE:
             _monitors = action.monitors;
             logger.info('initializing monitors: ', _monitors);
-            MonitorsStore.emitChange();
+            MonitorStore.emitChange();
             break;
         default:
             // no-op
     }
 });
 
-module.exports = MonitorsStore;
+module.exports = MonitorStore;

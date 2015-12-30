@@ -27,6 +27,12 @@ class App {
     [configureApp]() {
         const app = this.expressInstance;
 
+        // allow cross-origin requests
+        app.use((req, res, next) => {
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            next();
+        });
+
         app.use(bodyParser.json());
         app.use(responseTime((req, res, time) => {
             logger.info('[%s] %s %dms', req.method, req.originalUrl, time);

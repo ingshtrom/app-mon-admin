@@ -3,7 +3,7 @@
 const Dispatcher = require('../dispatcher/app-dispatcher');
 const ActionTypes = require('../constants/action-types');
 const MonitorsApi = require('../api/monitors-api');
-const logger = require('../logger');
+const logger = require('../logger').getInstance('InitializeActions');
 
 var InitializeActions = {
     initApp: function () {

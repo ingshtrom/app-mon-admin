@@ -22,10 +22,11 @@ var config = {
         css: [
             'node_modules/bootstrap/dist/css/bootstrap.min.css',
             'node_modules/bootstrap/dist/css/boostrap-theme.min.css',
-            'node_modules/toastr/build/toastr.css'
+            'node_modules/toastr/build/toastr.css',
+            './src/styles/**/*.css'
         ],
         dist: './dist',
-        mainJs: './src/main.jsx'
+        mainJs: './src/main.js'
     }
 };
 
@@ -53,7 +54,8 @@ gulp.task('html', function () {
 });
 
 gulp.task('js', function () {
-    return browserify(config.paths.mainJs)
+    console.log('building javascript files at ', new Date());
+    return browserify(config.paths.mainJs, { debug: true })
         .transform(reactify)
         .transform(babelify)
         .bundle()
