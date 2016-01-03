@@ -24,6 +24,10 @@ const MonitorStore = Object.assign({}, EventEmitter.prototype, {
 
     getAllMonitors: function () {
         return _monitors;
+    },
+
+    getMonitorById: function (id) {
+        return _.find(_monitors, { _id: id });
     }
 });
 
@@ -33,6 +37,18 @@ Dispatcher.register((action) => {
         case ActionTypes.INITIALIZE:
             _monitors = action.monitors;
             logger.info('initializing monitors: ', _monitors);
+            MonitorStore.emitChange();
+            break;
+        case ActionTypes.UPDATE_MONITOR:
+            let newMonitor = action.monitor;
+            _monitors.map((monitor) => {
+                if (monitor._id === newMonitor._id) {
+                    return newMonitor;
+                } else {
+                    return monitor;
+                }
+            });
+            logger.info('updated monitor', _monitors);
             MonitorStore.emitChange();
             break;
         default:

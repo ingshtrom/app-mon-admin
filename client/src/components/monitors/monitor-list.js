@@ -3,10 +3,20 @@
 const React = require('react');
 const Link = require('react-router').Link;
 const Monitor = require('../../models/monitor');
+const MonitorActions = require('../../actions/monitor-actions');
+const logger = require('../../logger').getInstance('MonitorList');
+const _ = require('lodash');
 
 const MonitorList = React.createClass({
     propTypes: {
         monitors: React.PropTypes.arrayOf(React.PropTypes.instanceOf(Monitor)).isRequired
+    },
+
+    updateMonitorActive: function(monitorId, newIsActiveValue, event) {
+        MonitorActions.updateMonitor({
+            _id: monitorId,
+            isActive: newIsActiveValue
+        });
     },
 
     render: function() {
@@ -18,7 +28,7 @@ const MonitorList = React.createClass({
                     <td>{monitor.expectedStatusCode}</td>
                     <td>{monitor.pollingInterval}ms</td>
                     <td>{new Date(monitor.updatedAt).toString()}</td>
-                    <td>{monitor.isActive}</td>
+                    <td><input type="checkbox" defaultChecked={monitor.isActive} onChange={this.updateMonitorActive.bind(this, monitor._id, monitor.isActive)}/></td>
                 </tr>
             );
         };

@@ -4,6 +4,7 @@ const React = require('react');
 const MonitorList = require('./monitor-list');
 const MonitorStore = require('../../stores/monitor-store');
 const Link = require('react-router').Link;
+const logger = require('../../logger').getInstance('MonitorPage');
 
 const MonitorPage = React.createClass({
     getInitialState: function () {
@@ -22,6 +23,7 @@ const MonitorPage = React.createClass({
 
     _onChange: function () {
         this.setState({ monitors: MonitorStore.getAllMonitors() });
+        logger.info('_onChange', this.state.monitors);
     },
 
     render: function() {

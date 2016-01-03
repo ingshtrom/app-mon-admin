@@ -2,6 +2,7 @@
 
 const React = require('react');
 const MonitorStore = require('../../stores/monitor-store');
+const MonitorForm = require('./monitor-form');
 
 const ManageMonitorPage = React.createClass({
     componentWillMount: function () {
@@ -11,6 +12,16 @@ const ManageMonitorPage = React.createClass({
         if (monitorId) {
             this.setState({ monitor: MonitorStore.getMonitorById(monitorId) });
         }
+    },
+
+    setMonitorState: function (event) {
+        var field = event.target.name;
+        var value = event.target.value || event.target.checked;
+        this.state.monitor[field] = value;
+        return this.setState({
+            monitor: this.state.monitor,
+            dirty: true
+        });
     },
 
     getInitialState: function () {
@@ -28,9 +39,13 @@ const ManageMonitorPage = React.createClass({
         };
     },
 
-    render: () => {
+    render: function() {
         return (
-            <div></div>
+            <div>
+                <h1>{this.state.monitor._id ? 'Manage Monitor' : 'New Monitor'}</h1>
+            <MonitorForm
+                onChange={this.setMonitorState} />
+            </div>
         );
     }
 });

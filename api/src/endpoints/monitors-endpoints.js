@@ -41,7 +41,7 @@ class MonitorsEndpoints {
     }
 
     [getMonitorById](req, res) {
-        MonitorsPersistence.findById(req.params.id)
+        MonitorsPersistence.findByIdAsync(req.params.id)
         .then((monitor) => {
             res.status(200).json(monitor);
         })
@@ -62,10 +62,14 @@ class MonitorsEndpoints {
             res.status(500).json(err);
         })
     }
-    
+
     [updateMonitor](req, res) {
         MonitorsPersistence.findByIdAsync(req.params.id)
         .then((monitor) => {
+            // make sure we don't accidentally overwrite the _id field
+            if (req.body._id) {
+                delete req.body._id;
+            }
             _.extend(monitor, req.body);
             return monitor.save();
         })

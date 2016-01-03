@@ -7,8 +7,8 @@ const Monitor = require('../models/monitor');
 
 function getAllMonitors() {
     return Promise.resolve($.get(config.apiUrl + '/monitors'))
-    .then((data) => {
-        return data.map((dataItem) => {
+    .then((responseData) => {
+        return responseData.map((dataItem) => {
             return Monitor.fromJson(dataItem);
         });
     })
@@ -17,4 +17,23 @@ function getAllMonitors() {
     });
 }
 
+function updateMonitor(updatedMonitor) {
+    const ajaxUrl = config.apiUrl + '/monitors/' + updatedMonitor._id;
+    const ajaxConfig = {
+        accepts: 'application/json',
+        cache: false,
+        data: updatedMonitor,
+        method: 'PUT'
+    };
+
+    return Promise.resolve($.ajax(ajaxUrl, ajaxConfig))
+    .then((responseData) => {
+        return Monitor.fromJson(responseData);
+    })
+    .catch((err) => {
+        logger.error('Error while updating monitor', err);
+    });
+}
+
 module.exports.getAllMonitors = getAllMonitors;
+module.exports.updateMonitor = updateMonitor;

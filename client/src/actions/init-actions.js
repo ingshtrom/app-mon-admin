@@ -3,9 +3,9 @@
 const Dispatcher = require('../dispatcher/app-dispatcher');
 const ActionTypes = require('../constants/action-types');
 const MonitorsApi = require('../api/monitors-api');
-const logger = require('../logger').getInstance('InitializeActions');
+const logger = require('../logger').getInstance('InitActions');
 
-var InitializeActions = {
+const InitActions = {
     initApp: function () {
         MonitorsApi.getAllMonitors()
         .then((results) => {
@@ -17,4 +17,4 @@ var InitializeActions = {
     }
 };
 
-module.exports = InitializeActions;
+module.exports = InitActions;
